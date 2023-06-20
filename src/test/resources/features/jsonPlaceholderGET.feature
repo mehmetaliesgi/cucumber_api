@@ -9,3 +9,4 @@ Feature: Jsonplaceholder endpoint'inde GET request testi yapar
     And jPH respons'da content type degerinin "application/json; charset=utf-8"
     Then jPH GET respons body'sinde "userId" degerinin Integer 5
     And jPH GET respons body'sinde "title" degerinin String "optio dolor molestias sit"
+

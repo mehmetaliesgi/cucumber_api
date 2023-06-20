@@ -25,7 +25,6 @@ public class jphStepdefinitions {
     @Then("jPH server a GET request gonderir ve testleri yapmak icin response degerini kaydeder")
     public void j_ph_server_a_get_request_gonderir_ve_testleri_yapmak_icin_response_degerini_kaydeder() {
         response = given().when().get(endpoint);
-        response.prettyPrint();
     }
     @Then("jPH respons'da status degerinin {int}")
     public void j_ph_respons_da_status_degerinin(Integer statusCode) {
