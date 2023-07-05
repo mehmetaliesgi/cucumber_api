@@ -16,6 +16,8 @@ public class RestfulBooker_StepDefinitions {
     JsonPath jsonPathResponse;
     JSONObject requestBody;
     JSONObject bookigDatesObject;
+    JSONObject authBody;
+    String token;
     @Given("GET requesti yapılır ve response degerini kaydeder")
     public void doRequestAndSaveResponse() {
         response = given().when().get(jphStepdefinitions.endpoint);
@@ -40,7 +42,7 @@ public class RestfulBooker_StepDefinitions {
         assertEquals(checkout, jsonPathResponse.getString("bookingdates.checkout"));
         assertEquals(additionalneeds, jsonPathResponse.getString("additionalneeds"));
     }
-    @Given("POST requesti için gerekli veriler girilir ve body oluşturulur, {string}, {string}, {int}, {string}, {string}, {string}, {string}")
+    @Given("Request için gerekli veriler girilir ve body oluşturulur, {string}, {string}, {int}, {string}, {string}, {string}, {string}")
     public void createRequestBody(String firstname, String lastname, Integer totalprice, String depositpaid, String checkin, String checkout, String additionalneeds) {
         requestBody = new JSONObject();
         bookigDatesObject = new JSONObject();
@@ -59,4 +61,21 @@ public class RestfulBooker_StepDefinitions {
         response = given().contentType(ContentType.JSON).when().body(requestBody.toString()).post(jphStepdefinitions.endpoint);
         response.prettyPrint();
     }
+    @Given("Kullanıcı bir token üretir")
+    public void createToken() {
+        String endpoint = "https://restful-booker.herokuapp.com/auth";
+        authBody = new JSONObject();
+        authBody.put("username", "admin");
+        authBody.put("password", "password123");
+
+        response = given().contentType(ContentType.JSON).when().body(authBody.toString()).post(endpoint);
+        jsonPathResponse = response.jsonPath();
+        token = jsonPathResponse.getString("token");
+        System.out.println(token);
+    }
+    @When("PUT requesti yapılır ve response değeri kaydedilir")
+    public void doPutRequestAndSaveResponse() {
+        response = given().contentType(ContentType.JSON).auth().preemptive().basic("admin", "password123").when().body(requestBody.toString()).put(jphStepdefinitions.endpoint);
+    }
+
 }
