@@ -2,10 +2,11 @@ package stepdefinitions;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
-import org.junit.Assert;
-import utilities.ConfigReader;
+import org.json.JSONObject;
 
 import static io.restassured.RestAssured.given;
 import static org.junit.Assert.assertEquals;
@@ -13,6 +14,8 @@ import static org.junit.Assert.assertEquals;
 public class RestfulBooker_StepDefinitions {
     Response response;
     JsonPath jsonPathResponse;
+    JSONObject requestBody;
+    JSONObject bookigDatesObject;
     @Given("GET requesti yapılır ve response degerini kaydeder")
     public void doRequestAndSaveResponse() {
         response = given().when().get(jphStepdefinitions.endpoint);
@@ -36,6 +39,24 @@ public class RestfulBooker_StepDefinitions {
         assertEquals(checkin, jsonPathResponse.getString("bookingdates.checkin"));
         assertEquals(checkout, jsonPathResponse.getString("bookingdates.checkout"));
         assertEquals(additionalneeds, jsonPathResponse.getString("additionalneeds"));
+    }
+    @Given("POST requesti için gerekli veriler girilir ve body oluşturulur, {string}, {string}, {int}, {string}, {string}, {string}, {string}")
+    public void createRequestBody(String firstname, String lastname, Integer totalprice, String depositpaid, String checkin, String checkout, String additionalneeds) {
+        requestBody = new JSONObject();
+        bookigDatesObject = new JSONObject();
 
+        requestBody.put("firstname", firstname);
+        requestBody.put("lastname", lastname);
+        requestBody.put("totalprice", totalprice);
+        requestBody.put("depositpaid", Boolean.parseBoolean(depositpaid));
+        bookigDatesObject.put("checkin", checkin);
+        bookigDatesObject.put("checkout", checkout);
+        requestBody.put("bookingdates", bookigDatesObject);
+        requestBody.put("additionalneeds", additionalneeds);
+    }
+    @When("POST requesti yapılır ve response değeri kaydedilir")
+    public void doPostRequestAndSaveResponse() {
+        response = given().contentType(ContentType.JSON).when().body(requestBody.toString()).post(jphStepdefinitions.endpoint);
+        response.prettyPrint();
     }
 }
