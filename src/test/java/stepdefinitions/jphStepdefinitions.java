@@ -13,7 +13,7 @@ import utilities.ConfigReader;
 import static io.restassured.RestAssured.given;
 
 public class jphStepdefinitions {
-    String endpoint;
+    static String endpoint;
     Response response;
     JsonPath responseJsonPath;
     JSONObject requestBody;

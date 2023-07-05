@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Cucumber" time="5.07" tests="1" skipped="0" failures="0" errors="0">
-<testcase classname="Jsonplaceholder endpoint'inde GET request testi yapar" name="TC01 44 numaralı endpoint'e get request gönderip testleri yapar" time="4.728">
+<testsuite name="Cucumber" time="2.842" tests="1" skipped="0" failures="0" errors="0">
+<testcase classname="Jsonplaceholder endpoint'inde GET request testi yapar" name="TC01 44 numaralı endpoint'e get request gönderip testleri yapar" time="2.647">
 <system-out><![CDATA[
 Given Kullanici "jPHBaseUrl" base URL'ini kullanir..........................passed
 Then Path parametreleri icin "posts/44" kullanir............................passed
