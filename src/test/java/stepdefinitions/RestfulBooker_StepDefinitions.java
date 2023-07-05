@@ -77,5 +77,9 @@ public class RestfulBooker_StepDefinitions {
     public void doPutRequestAndSaveResponse() {
         response = given().contentType(ContentType.JSON).auth().preemptive().basic("admin", "password123").when().body(requestBody.toString()).put(jphStepdefinitions.endpoint);
     }
+    @When("DELETE requesti yapılır ve response değeri kaydedilir")
+    public void delete_requesti_yapılır_ve_response_değeri_kaydedilir() {
+        response = given().auth().preemptive().basic("admin", "password123").when().delete(jphStepdefinitions.endpoint);
+    }
 
 }

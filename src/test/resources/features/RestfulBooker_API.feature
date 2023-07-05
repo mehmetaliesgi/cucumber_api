@@ -23,6 +23,7 @@ Feature: Kullanıcı Restful-booker endpoint'inin testini gerçekleştirir.
     And Request sonucu response'da content type degerinin "Content-Type: application/json"
     Then Request sonucu response'da status degerinin 200 olduğu kontrol edilir
 
+
   Scenario: Kullanıcı PUT isteği yaparak var olan bir kayıt üzerinde değişiklik yapar
     And Kullanıcı bir token üretir
     And Path parametreleri icin "booking/7053" kullanir
@@ -30,3 +31,9 @@ Feature: Kullanıcı Restful-booker endpoint'inin testini gerçekleştirir.
     When PUT requesti yapılır ve response değeri kaydedilir
     And Request sonucu response'da content type degerinin "Content-Type: application/json"
     Then Request sonucu response'da status degerinin 200 olduğu kontrol edilir
+
+
+  Scenario: Kullanıcı DELETE isteği yaparak var olan bir kayıdı siler
+    And Path parametreleri icin "booking/1918" kullanir
+    When DELETE requesti yapılır ve response değeri kaydedilir
+    Then Request sonucu response'da status degerinin 201 olduğu kontrol edilir
